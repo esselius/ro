@@ -1,0 +1,8 @@
+keys:
+  - &pepp age1tc32kf0zh3xtkuu4j6eh9swskyvjlxfxx0q997mgrtl075fn9p8sgy94av
+
+creation_rules:
+  - path_regex: .*
+    encrypted_suffix: _encrypted
+    age:
+      - *pepp
