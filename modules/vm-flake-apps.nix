@@ -11,9 +11,14 @@
           program = lib.getExe extendedNixosConfig.config.system.build.vm;
 
           module = {
-            virtualisation.vmVariant.virtualisation = {
-              host.pkgs = inputs.nixpkgs.legacyPackages.${system};
-              diskImage = "./.tmp/${appName}.qcow2";
+            virtualisation.vmVariant = {
+              sops.age.keyFile = "";
+              sops.environment.SOPS_AGE_KEY_FILE = ../secrets-mock/key.txt;
+              services.getty.autologinUser = "root";
+              virtualisation = {
+                host.pkgs = inputs.nixpkgs.legacyPackages.${system};
+                diskImage = "./.tmp/${appName}.qcow2";
+              };
             };
           };
         in

@@ -10,6 +10,7 @@
     {
       devShells.aarch64-darwin.default = pkgs.mkShell {
         buildInputs = [ pkgs.sops ];
+        SOPS_AGE_KEY_FILE = ./key.txt;
       };
     };
 }
