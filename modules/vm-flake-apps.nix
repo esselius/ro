@@ -1,4 +1,8 @@
-{ inputs, config, ... }:
+{
+  inputs,
+  config,
+  ...
+}:
 {
   perSystem =
     { lib, system, ... }:
@@ -12,8 +16,6 @@
 
           module = {
             virtualisation.vmVariant = {
-              sops.age.keyFile = "";
-              sops.environment.SOPS_AGE_KEY_FILE = ../secrets-mock/key.txt;
               services.getty.autologinUser = "root";
               virtualisation = {
                 host.pkgs = inputs.nixpkgs.legacyPackages.${system};

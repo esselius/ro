@@ -1,10 +1,11 @@
 {
   flake.modules.nixos.acme-server = {
-    sops.secrets.intermediate_ca_key = {
-      # owner = "step-ca";
+    ro.secrets.intermediate_ca_key = {
+      owner = "step-ca";
+      literal = "xxx";
     };
-    sops.secrets.intermediate_ca_key_passphrase = {
-      # owner = "step-ca";
-    };
+    # ro.secrets.intermediate_ca_key_passphrase = {
+    # owner = "step-ca";
+    # };
   };
 }
