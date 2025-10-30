@@ -8,11 +8,11 @@
       ...
     }:
     let
-      inherit (lib)
-        mkOption
-        types
-        mkIf
-        mapAttrs
+      inherit (lib.types)
+        attrsOf
+        submodule
+        anything
+        path
         ;
       isBuildVM = config.virtualisation ? qemu;
       cfg = config.ro;
@@ -21,16 +21,16 @@
       imports = [ inputs.sops-nix.nixosModules.sops ];
 
       options.ro = {
-        secrets = mkOption {
-          type = types.attrsOf (
-            types.submodule (
+        secrets = lib.mkOption {
+          type = attrsOf (
+            submodule (
               { name, ... }:
               {
-                freeformType = types.attrsOf types.anything;
+                freeformType = attrsOf anything;
                 options = {
-                  path = mkOption {
+                  path = lib.mkOption {
                     readOnly = true;
-                    type = types.path;
+                    type = path;
                     default =
                       if isBuildVM then
                         (pkgs.writeText name cfg.secrets.${name}.literal).outPath
@@ -48,8 +48,8 @@
         sops.defaultSopsFile = inputs.secrets + "/nixos-" + config.networking.hostName + ".yaml";
         sops.defaultSopsFormat = "yaml";
 
-        sops.secrets = mkIf (!isBuildVM) (
-          mapAttrs (
+        sops.secrets = lib.mkIf (!isBuildVM) (
+          lib.mapAttrs (
             k: v:
             (builtins.removeAttrs v [
               "literal"

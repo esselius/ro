@@ -3,9 +3,15 @@
   flake.modules.nixos.helo = {
     networking.hostName = "helo";
     system.stateVersion = "25.05";
+    ro.domain = "localho.st";
   };
   flake.nixosConfigurations.helo = config.flake.lib.loadNixosSystemForHost "helo" [
-    "secrets"
     "acme-server"
+    "ro"
+    "secrets"
+    "incus"
+    "nginx"
+    "dex"
+    "postgres"
   ];
 }
