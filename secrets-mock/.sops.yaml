@@ -1,5 +1,0 @@
-creation_rules:
-  - path_regex: .*
-    encrypted_suffix: _keep_everything_unencrypted
-    age:
-      - age1xzds0v9qq2h4njscx45nsetwzpec6r5hp706gvx54cq6zp9ln3lqk5ap92
