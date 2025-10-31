@@ -29,7 +29,6 @@
                 freeformType = attrsOf anything;
                 options = {
                   path = lib.mkOption {
-                    readOnly = true;
                     type = path;
                     default =
                       if isBuildVM then
@@ -44,11 +43,11 @@
         };
       };
 
-      config = {
+      config = lib.mkIf (!isBuildVM) {
         sops.defaultSopsFile = inputs.secrets + "/nixos-" + config.networking.hostName + ".yaml";
         sops.defaultSopsFormat = "yaml";
 
-        sops.secrets = lib.mkIf (!isBuildVM) (
+        sops.secrets = (
           lib.mapAttrs (
             k: v:
             (builtins.removeAttrs v [
