@@ -61,15 +61,6 @@
         };
       };
 
-      networking.firewall.allowedTCPPorts = [ 9999 ];
-
-      virtualisation.vmVariant.virtualisation.forwardPorts = [
-        {
-          host.port = 9999;
-          guest.port = 9999;
-        }
-      ];
-
       services.nginx.virtualHosts."incus.${config.ro.domain}" = {
         forceSSL = true;
         enableACME = true;
@@ -78,5 +69,16 @@
           proxyWebsockets = true;
         };
       };
+
+      services.dex.settings.staticClients = [
+        {
+          id = "incus";
+          redirectURIs = [
+            "https://incus.${config.ro.domain}/oidc/callback"
+          ];
+          name = "Incus";
+          public = true;
+        }
+      ];
     };
 }

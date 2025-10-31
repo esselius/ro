@@ -30,16 +30,7 @@
               userID = "69036cd4-a07a-4cec-a9f2-b228c94eb3f6";
             }
           ];
-          staticClients = [
-            {
-              id = "incus";
-              redirectURIs = [
-                "https://incus.${config.ro.domain}/oidc/callback"
-              ];
-              name = "Incus";
-              public = true;
-            }
-          ];
+
         };
       };
 
