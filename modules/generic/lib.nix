@@ -11,6 +11,17 @@
       ++ builtins.map (module: config.flake.modules.nixos.${module}) modules;
     };
 
+  flake.lib.loadNixosSystemForRpiHost =
+    hostname: modules:
+    inputs.nixos-raspberrypi.lib.nixosSystem {
+      specialArgs = { inherit (inputs) nixos-raspberrypi; };
+      modules = [
+        config.flake.modules.nixos.${hostname}
+        config.flake.modules.nixos.config-assertions
+      ]
+      ++ builtins.map (module: config.flake.modules.nixos.${module}) modules;
+    };
+
   flake.modules.nixos.config-assertions =
     { config, lib, ... }:
     {
